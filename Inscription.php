@@ -1,20 +1,52 @@
 <?php
-$bdd = new PDO("mysql:host=localhost;dbname=biblio", "root", "");
-$requete = $bdd->prepare("INSERT INTO inscrit(nom,prenom,email,tel_fixe,tel_portable,rue,cp,ville,password) VALUES (:nom,:prenom,:email,:tel_fixe,:tel_portable,:rue,:cp,:ville,:password)");
+try {
 
-$requete->execute(array(
-    "nom" => $_POST['nom'],
-    "prenom" => $_POST['prenom'],
-    "email" => $_POST['email'],
-    "tel_fixe" => $_POST['tel_fixe'],
-    "tel_portable" => $_POST['tel_portable'],
-    "rue" => $_POST['rue'],
-    "cp" => $_POST['cp'],
-    "ville" => $_POST['ville'],
-    "password" => $_POST['password']
-));
-header("Location: Arrive.html");
+    $bdd = new PDO("mysql:host=localhost;dbname=biblio", "root", "");
+    $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    if (
+        !isset($_POST['nom'], $_POST['prenom'], $_POST['email'], $_POST['password'])
+        || empty($_POST['nom']) || empty($_POST['prenom']) || empty($_POST['email']) || empty($_POST['password'])
+    ) {
+        throw new Exception("Veuillez remplir tous les champs obligatoires.");
+    }
+
+    $nom        = filter_var(trim($_POST['nom']), FILTER_SANITIZE_STRING);
+    $prenom     = filter_var(trim($_POST['prenom']), FILTER_SANITIZE_STRING);
+    $email      = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
+    $tel_fixe   = filter_var($_POST['tel_fixe'], FILTER_SANITIZE_NUMBER_INT);
+    $tel_portable = filter_var($_POST['tel_portable'], FILTER_SANITIZE_NUMBER_INT);
+    $rue        = filter_var(trim($_POST['rue']), FILTER_SANITIZE_STRING);
+    $cp         = filter_var($_POST['cp'], FILTER_SANITIZE_NUMBER_INT);
+    $ville      = filter_var(trim($_POST['ville']), FILTER_SANITIZE_STRING);
+    $password   = password_hash($_POST['password'], PASSWORD_DEFAULT);  // Hachage du mot de passe
+
+    $requete = $bdd->prepare("
+        INSERT INTO inscrit (nom, prenom, email, tel_fixe, tel_portable, rue, cp, ville, password) 
+        VALUES (:nom, :prenom, :email, :tel_fixe, :tel_portable, :rue, :cp, :ville, :password)
+    ");
+
+    $requete->execute(array(
+        "nom" => $nom,
+        "prenom" => $prenom,
+        "email" => $email,
+        "tel_fixe" => $tel_fixe,
+        "tel_portable" => $tel_portable,
+        "rue" => $rue,
+        "cp" => $cp,
+        "ville" => $ville,
+        "password" => $password
+    ));
+
+    header("Location: Arrive.html");
+    exit();
+
+} catch (PDOException $e) {
+    echo "Erreur de connexion : " . $e->getMessage();
+} catch (Exception $e) {
+    echo "Erreur : " . $e->getMessage();
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
