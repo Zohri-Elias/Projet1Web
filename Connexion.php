@@ -12,7 +12,7 @@ $res = $requete->fetch();
 var_dump($res);
 
 if($requete->rowCount() > 0){
-    header("Location: acces.php");
+    header("Location: Arrive.html");
 }else{
     header("Location: connexion.html");
 }
