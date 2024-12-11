@@ -22,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($requete->rowCount() > 0) {
             echo '<div class="alert alert-success text-center">Connexion réussie ! Bienvenue.</div>';
+            header('Location: Arrive.html');
         } else {
             echo '<div class="alert alert-danger text-center">Email ou mot de passe incorrect.</div>';
         }
@@ -50,8 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
 </div>
-
-<!-- Lien vers Bootstrap Bundle JS (inclut Popper) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
