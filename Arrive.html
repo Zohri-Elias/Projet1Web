@@ -1,18 +1,113 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Connexion</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Bibliothèque de Livres</title>
+
+    <div class="top-right-buttons">
+        <button> <a href="inscription.html">s'Inscrire</a></button>
+        <button type="submit">Connexion</button>
+    </div>
+
+
+    <style>
+
+        body {
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+
+        .top-right-buttons {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #34495e;
+            padding: 10px 0;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+
 </head>
 <body>
 
-<h1>Se Connecter</h1>
+<header>
+    <h1>Bienvenue à la Bibliothèque</h1>
+    <p>Explorez notre collection de livres.</p>
+</header>
 
-<form action="Inscription.html" method="POST">
-    <input type="submit" value="Inscription">
-</form>
-<form action="Connexion.html" method="POST">
-    <input type="submit" value="Connexion">
-</form>
+<nav>
+    <a href="Accueil.html">Accueil</a>
+    <a href="Livre.html">Livres</a>
+    <a href="#">À propos</a>
+    <a href="#">Contact</a>
+
+
+</nav>
+
+<main>
+    <h2>Accueil</h2>
+    <p>Bienvenue sur notre site de bibliothèque. Parcourez nos livres en cliquant sur l'onglet <strong>Livres</strong>.</p>
+</main>
+
+<footer>
+    <p>&copy; 2024</p>
+</footer>
+
 </body>
 </html>
