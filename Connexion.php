@@ -12,7 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = isset($_POST['email']) ? $_POST['email'] : '';
     $password = isset($_POST['password']) ? $_POST['password'] : '';
 
-
     try {
         $bdd = new PDO("mysql:host=localhost;dbname=biblio", "root", "");
         $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -23,8 +22,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($requete->rowCount() > 0) {
             echo '<div class="alert alert-success text-center">Connexion réussie ! Bienvenue.</div>';
             header('Location: Arrive.html');
+            exit();
         } else {
-            echo '<div class="alert alert-danger text-center">Email ou mot de passe incorrect.</div>';
+            $requete = $bdd->prepare("SELECT * FROM admin WHERE email = :email AND password = :password");
+            $requete->execute([':email' => $email, ':password' => $password]);
+
+            if ($requete->rowCount() > 0) {
+                echo '<div class="alert alert-success text-center">Connexion réussie ! Bienvenue.</div>';
+                header('Location: Arrive.html');
+                exit();
+            } else {
+                echo '<div class="alert alert-danger text-center">Email ou mot de passe incorrect.</div>';
+            }
         }
     } catch (PDOException $e) {
         echo '<div class="alert alert-danger text-center">Erreur : ' . $e->getMessage() . '</div>';
