@@ -1,38 +1,17 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Bibliothèque de Livres</title>
 
-   <style>
-
+    <style>
         body {
             margin: 0;
             padding: 0;
-            position: relative;
-        }
-
-        .top-right-buttons {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            display: flex;
-            gap: 10px;
-            z-index: 1000;
-        }
-
-        button {
-            padding: 10px 15px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
             background-color: #f4f4f9;
             color: #333;
         }
@@ -75,16 +54,52 @@
             bottom: 0;
             width: 100%;
         }
-    </style>
 
+        #profile-icon {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        #profile-icon img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        #profile-menu {
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background-color: #fff;
+            padding: 10px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+            display: none;
+        }
+
+        #profile-menu a {
+            display: block;
+            text-decoration: none;
+            color: #007BFF;
+            padding: 5px 0;
+        }
+
+        #profile-menu a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
+
 <body>
 
 <header>
     <h1>Bienvenue à la Bibliothèque</h1>
     <p>Explorez notre collection de livres.</p>
 </header>
-
 
 <nav>
     <a href="Accueil.html">Accueil</a>
@@ -100,6 +115,24 @@
     </a>
 </nav>
 
+<?php if (isset($_SESSION['email'])): ?>
+<div id="profile-icon">
+    <img src="" alt="Profil">
+    <span><?= $_SESSION['email'] ?></span>
+
+    <div id="profile-menu">
+        <a href="Gestion.php">Voir Profil</a>
+        <a href="Deconnection.php">Déconnexion</a>
+    </div>
+
+    <script>
+        document.getElementById('profile-icon').addEventListener('click', function() {
+            var menu = document.getElementById('profile-menu');
+            menu.style.display = (menu.style.display === 'none' || menu.style.display === '') ? 'block' : 'none';
+        });
+    </script>
+</div>
+<?php endif; ?>
 
 <main>
     <h2>Accueil</h2>

@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if ($requete->rowCount() > 0) {
                 echo '<div class="alert alert-success text-center">Connexion réussie ! Bienvenue.</div>';
-                header('Location: Arrive.html');
+                header('Location: Gestion.php');
                 exit();
             } else {
                 echo '<div class="alert alert-danger text-center">Email ou mot de passe incorrect.</div>';
