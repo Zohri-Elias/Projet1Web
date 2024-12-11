@@ -1,5 +1,6 @@
 <?php
-$requete = = $bdd->prepare('SELECT* FROM inscrit');
+$bdd = new PDO("mysql:host=localhost;dbname=biblio", "root", "");
+$requete = $bdd->prepare('SELECT* FROM inscrit');
 
 $res= execute(array(
 
@@ -20,11 +21,6 @@ $res= execute(array(
 <form action="Modification.php" method="POST">
     <label for="inscrit">Sélectionner un membre :</label>
     <select name="nom" id="inscrit" required>
-        <?php
-        foreach(){
-        echo ...
-        }
-        ?P
     </select>
 
     <button type="submit">Modifier</button><br><br>
